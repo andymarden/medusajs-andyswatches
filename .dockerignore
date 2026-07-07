@@ -1,0 +1,10 @@
+.git
+node_modules
+.pnpm-store
+.next
+.medusa
+dist
+build
+.env
+apps/backend/.env
+apps/storefront/.env

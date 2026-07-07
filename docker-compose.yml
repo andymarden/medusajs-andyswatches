@@ -1,0 +1,40 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - medusa_redis:/data
+
+  medusa:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - redis
+    ports:
+      - "8999:9000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      STORE_CORS: https://shop.andyswatches.com
+      ADMIN_CORS: https://api.andyswatches.com
+      AUTH_CORS: https://api.andyswatches.com
+      MEDUSA_BACKEND_URL: https://api.andyswatches.com
+
+  storefront:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - medusa
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: https://api.andyswatches.com
+    entrypoint: ["./start-storefront.sh"]
+
+volumes:
+  medusa_redis:
