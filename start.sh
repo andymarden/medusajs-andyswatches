@@ -10,4 +10,5 @@ echo "Running database migrations..."
 pnpm medusa db:migrate
 
 echo "Starting Medusa backend..."
+cd /server/apps/backend/.medusa/server
 pnpm start
