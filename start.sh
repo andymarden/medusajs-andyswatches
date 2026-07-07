@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
-pnpm --filter ./apps/backend build
-pnpm --filter ./apps/backend medusa db:migrate
-pnpm --filter ./apps/backend start
+cd /server/apps/backend
+
+echo "Building Medusa backend..."
+pnpm build
+
+echo "Running database migrations..."
+pnpm medusa db:migrate
+
+echo "Starting Medusa backend..."
+pnpm start

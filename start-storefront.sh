@@ -1,5 +1,10 @@
 #!/bin/sh
 set -e
 
-pnpm --filter ./apps/storefront build
-pnpm --filter ./apps/storefront start
+cd /server/apps/storefront
+
+echo "Building storefront..."
+pnpm build
+
+echo "Starting storefront..."
+pnpm start
