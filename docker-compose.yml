@@ -1,5 +1,6 @@
 services:
   redis:
+    container_name: medusa_redis
     image: redis:7-alpine
     restart: unless-stopped
     command: redis-server --appendonly yes
@@ -7,6 +8,7 @@ services:
       - medusa_redis:/data
 
   medusa:
+    container_name: medusa_backend
     build: .
     restart: unless-stopped
     depends_on:
@@ -25,12 +27,13 @@ services:
       - MEDUSA_BACKEND_URL=https://api.andyswatches.com
 
   storefront:
+    container_name: medusa_storefront
     build: .
     restart: unless-stopped
     depends_on:
       - medusa
     ports:
-      - "8000:8000"
+      - "8998:8000"
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://api.andyswatches.com
