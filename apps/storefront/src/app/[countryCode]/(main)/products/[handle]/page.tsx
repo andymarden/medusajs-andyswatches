@@ -62,7 +62,7 @@ function getImagesForVariant(
     return product.images
   }
 
-  const variant = product.variants!.find((v) => v.id === selectedVariantId)
+  const variant = product.variants?.find((v) => v.id === selectedVariantId)
   if (!variant || !variant.images?.length) {
     return product.images
   }
