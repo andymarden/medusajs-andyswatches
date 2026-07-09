@@ -36,7 +36,7 @@ export default async function PaginatedProducts({
   const queryParams: PaginatedProductsParams = {
     limit: 12,
     fields:
-      "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,+metadata,+tags,thumbnail,*images",
+      "id,title,handle,*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,+metadata,+tags,thumbnail,*images",
   }
 
   if (collectionId) {
