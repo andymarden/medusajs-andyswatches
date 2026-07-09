@@ -13,6 +13,7 @@ type PaginatedProductsParams = {
   category_id?: string[]
   id?: string[]
   order?: string
+  fields?: string
 }
 
 export default async function PaginatedProducts({
@@ -34,6 +35,8 @@ export default async function PaginatedProducts({
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: 12,
+    fields:
+      "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,+metadata,+tags,thumbnail,*images",
   }
 
   if (collectionId) {
