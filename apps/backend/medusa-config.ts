@@ -14,4 +14,22 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET,
     }
   }
-})
+},
+  modules: [
+    {
+      resolve: Modules.FILE,
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/file-local",
+            id: "local",
+            options: {
+              upload_dir: "static",
+              backend_url: `${process.env.MEDUSA_BACKEND_URL}/static`,
+            },
+          },
+        ],
+      },
+    },
+  ],
+}))
